@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "toor";
 $dbname = "Rental_home";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -49,7 +49,7 @@ $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 echo '<div class="card">';
-                echo '<img src="' . $row["Rent_images"] . '" alt="Room Image">';
+                echo '<img src="../' . $row["Rent_images"] . '" alt="Room Image">';
                 echo '<h3>' . $row["Rent_Type"] . '</h3>';
                 echo '<p>' . $row["Rent_Description"] . '</p>';
                 echo '<p>Price: $' . $row["Rent_price"] . '</p>';

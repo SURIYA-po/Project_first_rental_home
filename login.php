@@ -271,61 +271,52 @@ header {
 </style>
 </head>
 <body>
-	<?php
-	$host= "localhost";
-	$username = "root";
-	$password = "toor";
-	$dbname = "Rental_home";
+<?php
+session_start(); // Start a new session or resume an existing session
+include 'connect.php';
 
-	// Create connection
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['login'])) {
+        $User_Name = $_POST['User_Name'];
+        $Password = $_POST['Password'];
 
-	$conn = new mysqli($host, $username, $password, $dbname);
-	
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+        // Handle login logic here
+        $sql = "SELECT * FROM user WHERE User_Name='$User_Name' AND Password='$Password'";
+        $result = $conn->query($sql);
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		if (isset($_POST['login'])) {
-			$User_Name = $_POST['User_Name'];
-			$Password = $_POST['Password'];
+        if ($result->num_rows > 0) {
+            // Login successful, set session variables
+            $_SESSION['User_Name'] = $User_Name;
+            $_SESSION['logged_in'] = true;
+            header("Location: index.php"); // Redirect to a new page
+        } else {
+            echo "Invalid username or password";
+        }
+    } elseif (isset($_POST['signup'])) {
+        $User_Name = $_POST['User_Name'];
+        $U_Address = $_POST['U_Address'];
+        $Password = $_POST['Password'];
+        $U_Description = $_POST['U_Description'];
+        $U_Number = $_POST['U_Number'];
+        $confirm_Password = $_POST['confirm_Password'];
 
-			// Handle login logic here
-			$sql = "SELECT * FROM user WHERE User_Name='$User_Name' AND Password='$Password'";
-			$result = $conn->query($sql);
+        // Handle signup logic here
+        if ($Password == $confirm_Password) {
+            $sql = "INSERT INTO user (User_Name, U_Address, Password, U_Description, U_Number) 
+                    VALUES ('$User_Name', '$U_Address', '$Password', '$U_Description', '$U_Number')";
+            if ($conn->query($sql) === TRUE) {
+                echo "Signup successful";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        } else {
+            echo "Passwords do not match";
+        }
+    }
+}
 
-			if ($result->num_rows > 0) {
-				echo "Login successful ";
-				header("Location: index.php");
-			} else {
-				echo "Invalid username or password";
-			}
-		} elseif (isset($_POST['signup'])) {
-			$User_Name = $_POST['User_Name'];
-			$U_Address = $_POST['U_Address'];
-			$Password = $_POST['Password'];
-			$U_Description = $_POST['U_Description'];
-			$U_Number = $_POST['U_Number'];
-			$confirm_Password = $_POST['confirm_Password'];
-
-			// Handle signup logic here
-			if ($Password == $confirm_Password) {
-				$sql = "INSERT INTO user (User_Name, U_Address, Password, U_Description, U_Number) VALUES ('$User_Name', '$U_Address', '$Password', '$U_Description', '$U_Number')";
-				if ($conn->query($sql) === TRUE) {
-					echo "Signup successful";
-				} else {
-					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
-			} else {
-				echo "Passwords do not match";
-			}
-		}
-	}
-
-	$conn->close();
-	
-	?>
+$conn->close();
+?>
 
 	<header>
 		<h1 class="heading"></h1>

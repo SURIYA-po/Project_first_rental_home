@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +35,64 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+
+  <style>
+   
+
+/* Search Box
+#search-box {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+ 
+}
+
+#search-box input[type="text"] {
+  width: 100px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+} */
+
+#search-box button {
+  padding: 10px 20px;
+  background: #50d8af;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#search-box button:hover {
+  background: #45c69d;
+}
+
+/* Search Results */
+.listing {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.listing h3 {
+  margin: 0 0 10px 0;
+}
+
+.listing p {
+  margin: 5px 0;
+}
+
+.listing img {
+  margin-top: 10px;
+  max-width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+
+
+    </style>
 </head>
 
 <body id="body">
@@ -68,29 +127,82 @@
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
-
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#body">Home</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          <li><a href="logout.php">Logout</a></li>
           <li><a href="login.php">Login</a></li>
-          <li class="menu-has-children"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
+          
+          
           </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
+      <br>
+      <div id="search-box">
+        <form action="" method="POST">
+          <input type="text" id='search' name="query" placeholder="Search for rentals...">
+          <button type="submit" onclick="showsearch()">Search</button>
+        </form>
+      </div>
+
+     
     </div>
   </header><!-- #header -->
+  <section id="search-results" >
+    <div class="container">
+      <?php
+      include 'connect.php'; // Ensure this file establishes the database connection
 
+      // Check if the form has been submitted and the query parameter exists
+      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['query']) && !empty(trim($_POST['query']))) {
+          $query = $conn->real_escape_string(trim($_POST['query']));
+          $sql = "SELECT * FROM Rent WHERE Rent_Description LIKE '%$query%' OR Renter_Address LIKE '%$query%' OR Rent_Type LIKE '%$query%'";
+
+          $result = $conn->query($sql);
+
+          if ($result === false) {
+              echo "Error: " . $conn->error;
+          } elseif ($result->num_rows > 0) {
+              echo "<h2>Search Results</h2>";
+              while ($row = $result->fetch_assoc()) {
+                  echo "<div class='listing'>";
+                  echo "<h3>" . htmlspecialchars($row['Rent_Type']) . "</h3>";
+                  echo "<p>" . htmlspecialchars($row['Rent_Description']) . "</p>";
+                  
+
+                  echo "<p>Address: " . htmlspecialchars($row['Renter_Address']) . "</p>";
+
+                  echo "<p>Price: $" . htmlspecialchars($row['Rent_price']) . "</p>";
+                  echo '<a href="post_details.php?id=' . $row['Rent_id'] . '">';
+                  if (!empty($row['Rent_images'])) {
+                      echo "<p><img src='" . htmlspecialchars($row['Rent_images']) . "' alt='Rent Image' width='100'></p>";
+                  }
+                  echo '</a>';
+                  echo "</div>";
+              }
+          } else {
+              echo "<p>No results found</p>";
+          }
+      } else {
+          
+      }
+      ?>
+    </div>
+    <script>
+      function showSearch() {
+          let searchResults = document.getElementById('search-results');
+          if (searchResults.style.display === 'none' || searchResults.style.display === '') {
+              searchResults.style.display = 'block';
+          } else {
+              searchResults.style.display = 'none';
+          }
+      }
+      </script>
+    </section>
   <!--==========================
     Intro Section
   ============================-->
@@ -99,8 +211,8 @@
     <div class="intro-content">
       <h2>अब कोठा खोजौ <span>निर्धारक्क</span><br> संग!</h2>
       <div>
-        <a href="#about" class="btn-get-started scrollto">Rent</a>
-        <a href="#portfolio" class="btn-projects scrollto">Sale</a>
+        <a href="#search" class="btn-get-started scrollto">Rent</a>
+        <a href="sale.php" class="btn-projects scrollto">Sale</a>
       </div>
     </div>
 
@@ -123,17 +235,17 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 about-img">
-            <img src="img/about-img.jpg" alt="">
+            <img src="img/OIG2.jpeg" alt="">
           </div>
 
           <div class="col-lg-6 content">
-            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing</h2>
-            <h3>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h3>
+            <h2>Discover your perfect rental home effortlessly with कोठा</h2>
+            <h3> where finding the ideal space is just a click away!</h3>
 
             <ul>
-              <li><i class="ion-android-checkmark-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="ion-android-checkmark-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="ion-android-checkmark-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+              <li><i class="ion-android-checkmark-circle"></i> From rooms and flats to offices and more, we have a wide range of rental options to fit your needs and budget.</li>
+              <li><i class="ion-android-checkmark-circle"></i> Get all the important details upfront – descriptions, prices, images, and addresses – so you can make informed decisions</li>
+              <li><i class="ion-android-checkmark-circle"></i> Our search tool helps you find exactly what you're looking for with just a few clicks.</li>
             </ul>
 
           </div>
@@ -157,7 +269,7 @@
           <div class="col-lg-6">
             <div class="box wow fadeInLeft">
               <div class="icon"><i class="fa fa-bar-chart"></i></div>
-              <h4 class="title"><a href="">Room Rentals</a></h4>
+              <h4 class="title"><a href="services/room.php">Room Rentals</a></h4>
               <p class="description">Our room rentals are perfect for individuals looking for a comfortable and affordable living space. Each room is well-furnished and includes essential amenities such as a bed, wardrobe, and study desk.</p>
             </div>
           </div>
@@ -165,7 +277,7 @@
           <div class="col-lg-6">
             <div class="box wow fadeInRight">
               <div class="icon"><i class="fa fa-picture-o"></i></div>
-              <h4 class="title"><a href="">Flat Rentals</a></h4>
+              <h4 class="title"><a href="services/flat.php">Flat Rentals</a></h4>
               <p class="description">Our flat rentals offer complete living spaces suitable for singles, couples, and families. Each flat features multiple rooms, including bedrooms, a living room, a kitchen, and bathrooms.</p>
             </div>
           </div>
@@ -173,7 +285,7 @@
           <div class="col-lg-6">
             <div class="box wow fadeInLeft" data-wow-delay="0.2s">
               <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-              <h4 class="title"><a href="">Office Space Rentals</a></h4>
+              <h4 class="title"><a href="services/office.php">Office Space Rentals</a></h4>
               <p class="description">Our office space rentals cater to businesses of all sizes, from startups to established companies. We offer flexible office solutions, including private offices, shared coworking spaces, and virtual offices. </p>
             </div>
           </div>
@@ -181,7 +293,7 @@
           <div class="col-lg-6">
             <div class="box wow fadeInRight" data-wow-delay="0.2s">
               <div class="icon"><i class="fa fa-map"></i></div>
-              <h4 class="title"><a href="">Office Space Rentals</a></h4>
+              <h4 class="title"><a href="services/shutter.php">Shutter Rentals</a></h4>
               <p class="description">Our shop and shutter rentals provide excellent opportunities for retail businesses to thrive. Located in bustling commercial areas, these spaces are designed to attract high foot traffic and offer visibility for your products and services.</p>
             </div>
           </div>
@@ -219,107 +331,46 @@
       Our Portfolio Section
     ============================-->
     <section id="portfolio" class="wow fadeInUp">
-      <div class="container">
-        <div class="section-header">
-          <h2>Recent Posts</h2>
-          <p></p>
-        </div>
-      </div>
-
-      <div class="container-fluid">
-        <div class="row no-gutters">
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/1.jpg" class="portfolio-popup">
-                <img src="img/portfolio/1.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 1</h2></div>
-                </div>
-              </a>
+        <div class="container">
+            <div class="section-header">
+                <h2>Recent Posts</h2>
+                <p></p>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/2.jpg" class="portfolio-popup">
-                <img src="img/portfolio/2.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 2</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/3.jpg" class="portfolio-popup">
-                <img src="img/portfolio/3.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 3</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/4.jpg" class="portfolio-popup">
-                <img src="img/portfolio/4.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 4</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/5.jpg" class="portfolio-popup">
-                <img src="img/portfolio/5.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 5</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/6.jpg" class="portfolio-popup">
-                <img src="img/portfolio/6.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 6</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/7.jpg" class="portfolio-popup">
-                <img src="img/portfolio/7.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 7</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="portfolio-item wow fadeInUp">
-              <a href="img/portfolio/8.jpg" class="portfolio-popup">
-                <img src="img/portfolio/8.jpg" alt="">
-                <div class="portfolio-overlay">
-                  <div class="portfolio-info"><h2 class="wow fadeInUp">Portfolio Item 8</h2></div>
-                </div>
-              </a>
-            </div>
-          </div>
-
         </div>
 
-      </div>
+        <div class="container-fluid">
+            <div class="row no-gutters">
+                <?php
+                
+
+                include 'connect.php'; // Include your database connection file
+
+                $sql = "SELECT Rent_id, Rent_Type, Rent_Price, Renter_Address, Rent_images FROM Rent";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-lg-3 col-md-4">';
+                        echo '<div class="portfolio-item card wow fadeInUp">';
+                        echo '<a href="post_details.php?id=' . $row['Rent_id'] . '">';
+                        echo '<img src="' . $row['Rent_images'] . '" class="card-img-top" alt="">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . $row['Rent_Type'] . '</h5>';
+                        echo '<p class="card-text">Price: $' . $row['Rent_Price'] . '</p>';
+                        echo '<p class="card-text">Location: ' . $row['Renter_Address'] . '</p>';
+                        echo '</div>';
+                        echo '</a>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No posts found.</p>';
+                }
+
+                $conn->close();
+                ?>
+            </div>
+        </div>
     </section><!-- #portfolio -->
 
     <!--==========================
