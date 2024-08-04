@@ -198,7 +198,7 @@
     </section>
     
     <footer>
-        <p>&copy; 2024 RoomRental. All rights reserved.</p>
+        <p>&copy; 2024 अब कोठा खोजौ <span>निर्धारक्क</span> संग!. All rights reserved.</p>
     </footer>
     
     <script>
