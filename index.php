@@ -29,7 +29,7 @@
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
+  <!-- ===============================================
     Theme Name: Reveal
     Theme URL: https://bootstrapmade.com/reveal-bootstrap-corporate-template/
     Author: BootstrapMade.com
