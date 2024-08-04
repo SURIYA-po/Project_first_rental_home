@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport"
-		content="width=device-width, 
-						initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Sign up</title>
 	<style>
-		
-* {
+	 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -271,62 +268,101 @@ header {
 		font-size: 19px;
 	}
 }
-
-	</style>
+</style>
 </head>
-
 <body>
+	<?php
+	$host= "localhost";
+	$username = "root";
+	$password = "toor";
+	$dbname = "Rental_home";
+
+	// Create connection
+
+	$conn = new mysqli($host, $username, $password, $dbname);
+	
+	// Check connection
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if (isset($_POST['login'])) {
+			$User_Name = $_POST['User_Name'];
+			$Password = $_POST['Password'];
+
+			// Handle login logic here
+			$sql = "SELECT * FROM user WHERE User_Name='$User_Name' AND Password='$Password'";
+			$result = $conn->query($sql);
+
+			if ($result->num_rows > 0) {
+				echo "Login successful ";
+				header("Location: index.php");
+			} else {
+				echo "Invalid username or password";
+			}
+		} elseif (isset($_POST['signup'])) {
+			$User_Name = $_POST['User_Name'];
+			$U_Address = $_POST['U_Address'];
+			$Password = $_POST['Password'];
+			$U_Description = $_POST['U_Description'];
+			$U_Number = $_POST['U_Number'];
+			$confirm_Password = $_POST['confirm_Password'];
+
+			// Handle signup logic here
+			if ($Password == $confirm_Password) {
+				$sql = "INSERT INTO user (User_Name, U_Address, Password, U_Description, U_Number) VALUES ('$User_Name', '$U_Address', '$Password', '$U_Description', '$U_Number')";
+				if ($conn->query($sql) === TRUE) {
+					echo "Signup successful";
+				} else {
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+			} else {
+				echo "Passwords do not match";
+			}
+		}
+	}
+
+	$conn->close();
+	
+	?>
+
 	<header>
 		<h1 class="heading"></h1>
-		
 	</header>
 
-	<!-- container div -->
 	<div class="container">
-
-		<!-- upper button section to select
-			the login or signup form -->
 		<div class="slider"></div>
 		<div class="btn">
 			<button class="login">Login</button>
 			<button class="signup">Signup</button>
 		</div>
 
-		<!-- Form section that contains the
-			login and the signup form -->
 		<div class="form-section">
-
-			<!-- login form -->
 			<div class="login-box">
-				<input type="email"
-					class="email ele"
-					placeholder="youremail@email.com">
-				<input type="password"
-					class="password ele"
-					placeholder="password">
-				<button class="clkbtn">Login</button>
+				<form method="POST" action="">
+					<input type="text" name="User_Name" class="ele" placeholder="User Name" required>
+					<input type="password" name="Password" class="ele" placeholder="Password" required>
+					<button type="submit" name="login" class="clkbtn">Login</button>
+				</form>
 			</div>
 
-			<!-- signup form -->
 			<div class="signup-box">
-				<input type="text"
-					class="name ele"
-					placeholder="Enter your name">
-				<input type="email"
-					class="email ele"
-					placeholder="youremail@email.com">
-				<input type="password"
-					class="password ele"
-					placeholder="password">
-				<input type="password"
-					class="password ele"
-					placeholder="Confirm password">
-				<button class="clkbtn">Signup</button>
+				<form method="POST" action="login.php">
+					<input type="text" name="User_Name" class="ele" placeholder="Enter your name" required>
+					<input type="text" name="U_Address" class="ele" placeholder="Address" required>
+					<input type="password" name="Password" class="ele" placeholder="Password" required>
+					<input type="password" name="confirm_Password" class="ele" placeholder="Confirm Password" required>
+					<input type="text" name="U_Description" class="ele" placeholder="Description" required>
+					<input type="text" name="U_Number" class="ele" placeholder="User Number" required>
+					<button type="submit" name="signup" class="clkbtn">Signup</button>
+				</form>
 			</div>
 		</div>
 	</div>
+
 	<script>
-	let signup = document.querySelector(".signup");
+		let signup = document.querySelector(".signup");
 		let login = document.querySelector(".login");
 		let slider = document.querySelector(".slider");
 		let formSection = document.querySelector(".form-section");
@@ -340,6 +376,6 @@ header {
 			slider.classList.remove("moveslider");
 			formSection.classList.remove("form-section-move");
 		});
-		</script>
+	</script>
 </body>
 </html>
