@@ -50,8 +50,6 @@
             echo "<p>No results found</p>";
         }
     }
-
-   
     ?>
 </body>
 </html>

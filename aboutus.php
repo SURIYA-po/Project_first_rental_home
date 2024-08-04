@@ -157,7 +157,6 @@
             <p>अब कोठा खोजौ <span>निर्धारक्क</span> संग!, our mission is to simplify the process of finding and renting rooms. We strive to connect people with the best rental options that fit their needs and budget. Our platform offers a seamless experience, from browsing listings to finalizing rental agreements.</p>
         </div>
     </section>
-    
     <section id="team">
         <h2> Meet Our Team</h2>
         <div class="team-members">
@@ -204,7 +203,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Add any JavaScript you need for interactivity here
-            // For example, smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
