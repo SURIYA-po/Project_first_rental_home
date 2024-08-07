@@ -110,11 +110,11 @@ header {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 0px 40px;
+	padding: 10px 40px;
 }
 
 .login-box {
-	gap: 50px;
+	gap: 500px;
 }
 
 .signup-box {
@@ -122,7 +122,7 @@ header {
 }
 
 .ele {
-	height: 60px;
+	height: 50px;
 	width: 400px;
 	outline: none;
 	border: none;
@@ -130,7 +130,8 @@ header {
 	background-color: rgb(240, 240, 240);
 	border-radius: 50px;
 	padding-left: 30px;
-	font-size: 18px;
+	margin-top:12px;
+	font-size: 12px;
 }
 
 .clkbtn {
@@ -143,6 +144,7 @@ header {
 	font-size: 22px;
 	border: none;
 	cursor: pointer;
+	margin-top:15px;
 }
 
 
@@ -275,6 +277,8 @@ header {
 session_start(); // Start a new session or resume an existing session
 include 'connect.php';
 
+$loggedIn = false;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['login'])) {
         $User_Name = $_POST['User_Name'];
@@ -288,6 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Login successful, set session variables
             $_SESSION['User_Name'] = $User_Name;
             $_SESSION['logged_in'] = true;
+            $loggedIn = true;
             header("Location: index.php"); // Redirect to a new page
         } else {
             echo "Invalid username or password";
@@ -313,10 +318,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Passwords do not match";
         }
     }
+} elseif (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    $loggedIn = true;
 }
+
 
 $conn->close();
 ?>
+
 
 	<header>
 		<h1 class="heading"></h1>

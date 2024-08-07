@@ -1,15 +1,24 @@
+<?php 
+          session_start(); // Start a new session or resume the existing session
 
+          $loggedIn = false; // Initialize $loggedIn to false
+          
+          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+              $loggedIn = true;
+          }
+
+          ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Reveal Bootstrap Template</title>
+  <title>Project Ashrya</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
+  <link href="img/logo.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -90,6 +99,212 @@
   height: auto;
   border-radius: 4px;
 }
+/*--------------------------------------------------------------
+# Intro Section
+--------------------------------------------------------------*/
+#intro {
+  width: 100%;
+  height: 60vh;
+  position: relative;
+  background: url("../img/intro-carousel/1.jpg") no-repeat;
+  background-size: cover;
+}
+
+#intro .intro-content {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#intro .intro-content .intro-slides {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Ensure the container occupies the full height */
+  display: flex; /* Center the content */
+  align-items: center; /* Center the content */
+}
+
+
+#intro .intro-content .intro-slides h2 {
+  width: 100%;
+  margin-top: 10px;
+  color: #0c2e8a;
+  margin-bottom: 30px;
+  font-size: 64px;
+  font-weight: 700;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#intro .intro-content .intro-slides h2.active {
+  opacity: 1;
+}
+
+#intro .intro-content h2 span {
+  color: #50d8af;
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  #intro .intro-content h2 {
+    font-size: 34px;
+  }
+}
+
+#intro .intro-content .btn-get-started, #intro .intro-content .btn-projects {
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 32px;
+  border-radius: 2px;
+  transition: 0.5s;
+  margin: 10px;
+  color: #fff;
+}
+
+#intro .intro-content .btn-get-started {
+  background: #0c2e8a;
+  border: 2px solid #0c2e8a;
+}
+
+#intro .intro-content .btn-get-started:hover {
+  background: none;
+  color: #0c2e8a;
+}
+
+#intro .intro-content .btn-projects {
+  background: #50d8af;
+  border: 2px solid #50d8af;
+}
+
+#intro .intro-content .btn-projects:hover {
+  background: none;
+  color: #50d8af;
+}
+
+#intro #intro-carousel {
+  z-index: 8;
+}
+
+#intro #intro-carousel::before {
+  content: '';
+  background-color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 7;
+}
+
+#intro #intro-carousel .item {
+  width: 100%;
+  height: 60vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+
+
+
+/* General container styling */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.form-wrapper {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Message styling */
+.message-success, .message-error {
+    display: none;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.message-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.message-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Input and textarea styling */
+.input-field, .textarea-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.input-field:focus, .textarea-field:focus {
+    border-color: #5cb3fd;
+    outline: none;
+}
+
+/* Button styling */
+.submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+
+#header #logo .image {
+
+height: 80px;
+width: 80px;
+background-image:url('img/logo.png');
+background-size:contain;
+background-repeat:no-repeat;
+border-radius:50%;
+ 
+}
 
 
     </style>
@@ -103,15 +318,15 @@
   <section id="topbar" class="d-none d-lg-block">
     <div class="container clearfix">
       <div class="contact-info float-left">
-        <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contact@example.com</a>
-        <i class="fa fa-phone"></i> +1 5589 55488 55
+        <i class="fa fa-envelope-o"></i> <a href="mailto:pokhrelsurya703@gmail.com">pokhrelsurya703@gmail.com</a>
+        <i class="fa fa-phone"></i> 9867218297
       </div>
       <div class="social-links float-right">
-        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-        <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+        <a href="https://x.com/PanthiPava35832?t=tB-W58Hc8b1A6CETI9BBJw&s=09" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.facebook.com/surya.pokhrel.965" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.instagram.com/ravithakur.4531/" class="instagram"><i class="fa fa-instagram"></i></a>
         <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
-        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+        <a href="https://www.linkedin.com/in/%E0%A4%AA%E0%A4%B5%E0%A4%A8-%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%A5%E0%A5%80-4b501227b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app " class="linkedin"><i class="fa fa-linkedin"></i></a>
       </div>
     </div>
   </section>
@@ -123,9 +338,10 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#body" class="scrollto">को<span>ठा </span></a></h1>
+        <h1><a href="#body" class="scrollto">आ<span>श्रय </span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="#body"><img src="img/logo.png" alt="" title="" /></a>-->
+      
+        <a href="">  <div class="image"></div></a>
       </div>
       <nav id="nav-menu-container">
         <ul class="nav-menu">
@@ -133,8 +349,18 @@
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="logout.php">Logout</a></li>
-          <li><a href="login.php">Login</a></li>
+         
+          
+          
+         <?php if (!$loggedIn): ?>
+            <li><a href="login.php">Login</a></li>
+	
+	<?php endif; ?>
+          
+  <?php if ($loggedIn): ?>
+            <li><a href="logout.php">Logout</a></li>
+
+	<?php endif; ?>
           
           
           </li>
@@ -193,7 +419,35 @@
       ?>
     </div>
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('#intro .intro-content .intro-slides h2');
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === index) {
+        slide.classList.add('active');
+      }
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  // Initial display
+  showSlide(currentSlide);
+
+  // Change slide every 4 seconds
+  setInterval(nextSlide, 4000);
+});
       function showSearch() {
+
+       
+
           let searchResults = document.getElementById('search-results');
           if (searchResults.style.display === 'none' || searchResults.style.display === '') {
               searchResults.style.display = 'block';
@@ -207,22 +461,25 @@
     Intro Section
   ============================-->
   <section id="intro">
-
-    <div class="intro-content">
+  <div class="intro-content">
+    <div class="intro-slides">
       <h2>अब कोठा खोजौ <span>निर्धारक्क</span><br> संग!</h2>
-      <div>
-        <a href="#search" class="btn-get-started scrollto">Rent</a>
-        <a href="sale.php" class="btn-projects scrollto">Sale</a>
-      </div>
+      <h2>सस्तो र राम्रो <span>कोठा</span><br> पाउनुस्!</h2>
+      <h2>सुनिश्चित <span>भएको</span><br> कोठा भाडा दिनुस्!</h2>
     </div>
-
-    <div id="intro-carousel" class="owl-carousel" >
-      <div class="item" style="background-image: url('img/intro-carousel/1.jpg');"></div>
-      <div class="item" style="background-image: url('img/intro-carousel/2.jpg');"></div>
-      <div class="item" style="background-image: url('img/intro-carousel/3.jpg');"></div>
-      <div class="item" style="background-image: url('img/intro-carousel/4.jpg');"></div>
-      <div class="item" style="background-image: url('img/intro-carousel/5.jpg');"></div>
+    <div>
+      <a href="#search" class="btn-get-started scrollto">Rent</a>
+      <a href="sale.php" class="btn-projects scrollto">Sale</a>
     </div>
+  </div>
+  <div id="intro-carousel" class="owl-carousel">
+    <div class="item" style="background-image: url('img/intro-carousel/1.jpg');"></div>
+    <div class="item" style="background-image: url('img/intro-carousel/2.jpg');"></div>
+    <div class="item" style="background-image: url('img/intro-carousel/3.jpg');"></div>
+    <div class="item" style="background-image: url('img/intro-carousel/4.jpg');"></div>
+    <div class="item" style="background-image: url('img/intro-carousel/5.jpg');"></div>
+  </div>
+</section>
 
   </section><!-- #intro -->
 
@@ -373,95 +630,7 @@
         </div>
     </section><!-- #portfolio -->
 
-    <!--==========================
-      Testimonials Section
-    ============================-->
-    <section id="testimonials" class="wow fadeInUp">
-      <div class="container">
-        <div class="section-header">
-          <h2>Testimonials</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
-        </div>
-        <div class="owl-carousel testimonials-carousel">
-
-            <div class="testimonial-item">
-              <p>
-                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-              </p>
-              <img src="img/testimonial-1.jpg" class="testimonial-img" alt="">
-              <h3>Saul Goodman</h3>
-              <h4>Ceo &amp; Founder</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-              </p>
-              <img src="img/testimonial-2.jpg" class="testimonial-img" alt="">
-              <h3>Sara Wilsson</h3>
-              <h4>Designer</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-              </p>
-              <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
-              <h3>Jena Karlis</h3>
-              <h4>Store Owner</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-              </p>
-              <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
-              <h3>Matt Brandon</h3>
-              <h4>Freelancer</h4>
-            </div>
-
-            <div class="testimonial-item">
-              <p>
-                <img src="img/quote-sign-left.png" class="quote-sign-left" alt="">
-                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                <img src="img/quote-sign-right.png" class="quote-sign-right" alt="">
-              </p>
-              <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
-              <h3>John Larson</h3>
-              <h4>Entrepreneur</h4>
-            </div>
-
-        </div>
-
-      </div>
-    </section><!-- #testimonials -->
-
-    <!--==========================
-      Call To Action Section
-    ============================-->
-    <section id="call-to-action" class="wow fadeInUp">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-9 text-center text-lg-left">
-            <h3 class="cta-title">Call To Action</h3>
-            <p class="cta-text"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="col-lg-3 cta-btn-container text-center">
-            <a class="cta-btn align-middle" href="#">Call To Action</a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- #call-to-action -->
-
+    
     <!--==========================
       Our Team Section
     ============================-->
@@ -473,9 +642,9 @@
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-1.jpg" alt=""></div>
+              <div class="pic"><img src="img/team/surya.jpg" alt=""></div>
               <div class="details">
-                <h4>Walter White</h4>
+                <h4>Surya Pokhrel</h4>
                 <span>Chief Executive Officer</span>
                 <div class="social">
                   <a href=""><i class="fa fa-twitter"></i></a>
@@ -489,9 +658,9 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-2.jpg" alt=""></div>
+              <div class="pic"><img src="img/team/ravi1.jpg" alt=""></div>
               <div class="details">
-                <h4>Sarah Jhinson</h4>
+                <h4>Ravi Thakur</h4>
                 <span>Product Manager</span>
                 <div class="social">
                   <a href=""><i class="fa fa-twitter"></i></a>
@@ -505,10 +674,10 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-3.jpg" alt=""></div>
+              <div class="pic"><img src="img/team/panthi.jpg" alt=""></div>
               <div class="details">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
+                <h4>Pawan Panthi</h4>
+                <span>CTO & Founder</span>
                 <div class="social">
                   <a href=""><i class="fa fa-twitter"></i></a>
                   <a href=""><i class="fa fa-facebook"></i></a>
@@ -519,21 +688,7 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic"><img src="img/team-4.jpg" alt=""></div>
-              <div class="details">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-                <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
-                  <a href=""><i class="fa fa-google-plus"></i></a>
-                  <a href=""><i class="fa fa-linkedin"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
 
       </div>
@@ -546,7 +701,7 @@
       <div class="container">
         <div class="section-header">
           <h2>Contact Us</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <p>For the service we are here to help you for 24/7 </p>
         </div>
 
         <div class="row contact-info">
@@ -555,7 +710,7 @@
             <div class="contact-address">
               <i class="ion-ios-location-outline"></i>
               <h3>Address</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
+              <address>Lalitpur-imadol,krishnamadir</address>
             </div>
           </div>
 
@@ -563,7 +718,7 @@
             <div class="contact-phone">
               <i class="ion-ios-telephone-outline"></i>
               <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+155895548855">9826110703</a></p>
             </div>
           </div>
 
@@ -571,7 +726,7 @@
             <div class="contact-email">
               <i class="ion-ios-email-outline"></i>
               <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
+              <p><a href="mailto:pokhrelsurya703@gamil.com">pokhrelsurya703@gmail.com</a></p>
             </div>
           </div>
 
@@ -580,34 +735,25 @@
 
       <div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>
 
-      <div class="container">
-        <div class="form">
-          <div id="sendmessage">Your message has been sent. Thank you!</div>
-          <div id="errormessage"></div>
-          <form action="" method="post" role="form" class="contactForm">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
-              </div>
-              <div class="form-group col-md-6">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
-              </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-              <div class="validation"></div>
-            </div>
-            <div class="form-group">
-              <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-              <div class="validation"></div>
-            </div>
-            <div class="text-center"><button type="submit">Send Message</button></div>
-          </form>
-        </div>
+      <div class="form-container">
+    <div class="form-wrapper">
+        <div class="message-success">Your message has been sent. Thank you!</div>
+        <div class="message-error"></div>
+        <form action="https://api.web3forms.com/submit" method="POST">
 
-      </div>
+            <input type="hidden" name="access_key" value="4ea4f573-31da-4cbd-8965-1b045ddef6c8">
+            Name:
+            <input class="input-field" type="text" name="name" required>
+            Email:
+            <input class="input-field" type="email" name="email" required>
+            FeedBack:
+            <textarea class="textarea-field" name="message" required></textarea>
+            <button class="submit-button" type="submit">Sent</button>
+
+        </form>
+    </div>
+</div>
+
     </section><!-- #contact -->
 
   </main>
@@ -627,7 +773,7 @@
           Licensing information: https://bootstrapmade.com/license/
           Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Reveal
         -->
-        <a href="https://bootstrapmade.com/">Free Bootstrap Templates</a> by BootstrapMade
+        
       </div>
     </div>
   </footer><!-- #footer -->

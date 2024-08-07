@@ -3,6 +3,7 @@ jQuery(document).ready(function($) {
 
   //Contact
   $('form.contactForm').submit(function() {
+    console.log("i am here")
     var f = $(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
@@ -92,7 +93,7 @@ jQuery(document).ready(function($) {
     else var str = $(this).serialize();
     $.ajax({
       type: "POST",
-      url: "contactform/contactform.php",
+      url: "contactForm.php",
       data: str,
       success: function(msg) {
         // alert(msg);
