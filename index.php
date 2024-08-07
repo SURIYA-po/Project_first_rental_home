@@ -307,9 +307,12 @@ border-radius:50%;
 
 @media (max-width: 767px) {
 
+
+
   #header #logo .image {
     height:40px;
     width:40px;
+}
 }
 
 
