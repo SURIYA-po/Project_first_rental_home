@@ -1,15 +1,10 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "toor";
-$dbname = "Rental_home";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT Rent_id, Rent_Type, Rent_Description, Rent_price, Rent_images FROM Rent WHERE Rent_Type='room'";
+include '../connect.php';
+include '../session.php';
+$sql = "SELECT Rent_Type, Rent_Description, Rent_price, Rent_images,Renter_name ,Rent_id FROM  Rent natural join Renter  WHERE Rent_Type='room'";
 $result = $conn->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -78,8 +73,14 @@ $result = $conn->query($sql);
                 echo '<p>' . $row["Rent_Description"] . '</p>';
                 echo '<p>Price: $' . $row["Rent_price"] . '</p>';
                 echo '<div class="button-container">';
-                echo '<a href="update_post.php?id=' . $row["Rent_id"] . '" class="button">Update</a>';
+               
+             if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
+                    echo '<a href="../update_post.php?id=' . $row["Rent_id"] . '" class="button">Update</a>';
+        
+             endif; 
+             if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
                 echo '<a href="delete_post.php?id=' . $row["Rent_id"] . '" class="button delete-button">Delete</a>';
+             endif;
                 echo '</div>';
                 echo '</div>';
             }

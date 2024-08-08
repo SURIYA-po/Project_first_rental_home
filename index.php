@@ -630,10 +630,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="container-fluid">
         <div class="row no-gutters">
             <?php
-
+         
             include 'connect.php'; // Include your database connection file
 
-            $sql = "SELECT Rent_id, Rent_Type, Rent_Price, Renter_Address, Rent_images FROM Rent";
+            $sql = "SELECT Rent_id, Rent_Type, Rent_Price, Renter_Address, Rent_images,Renter_name FROM Rent natural join Renter";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -649,8 +649,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     echo '</div>';
                     echo '</a>';
                     echo '<div class="card-body">';
-                    echo '<a href="update_post.php?id=' . $row['Rent_id'] . '" class="btn btn-primary">Update</a>';
-                    echo '<a href="delete_post.php?id=' . $row['Rent_id'] . '" class="btn btn-danger">Delete</a>';
+                      
+             if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
+              echo '<a href="update_post.php?id=' . $row['Rent_id'] . '" class="btn btn-primary">Update</a>';
+
+  
+       endif; 
+       if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
+        echo '<a href="delete_post.php?id=' . $row['Rent_id'] . '" class="btn btn-danger">Delete</a>';
+      endif;
+                   
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';

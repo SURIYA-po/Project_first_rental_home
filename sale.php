@@ -113,6 +113,7 @@ session_start(); // Start the session
 
             if ($conn->query($sql_rent) === TRUE) {
                 echo "Rent and renter details posted successfully.";
+                header("Location: index.php"); 
             } else {
                 echo "Error: " . $sql_rent . "<br>" . $conn->error;
             }

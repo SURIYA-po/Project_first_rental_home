@@ -1,20 +1,15 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "toor";
-$dbname = "Rental_home";
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT Rent_Type, Rent_Description, Rent_price, Rent_images FROM Rent WHERE Rent_Type='shutter'";
+include '../connect.php';
+include '../session.php';
+$sql = "SELECT Rent_Type, Rent_Description, Rent_price, Rent_images,Renter_name ,Rent_id FROM  Rent natural join Renter  WHERE Rent_Type='flat'";
 $result = $conn->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Shutter Services</title>
+    <title>Room Details</title>
     <style>
         .card {
             border: 1px solid #ccc;
@@ -40,10 +35,34 @@ $result = $conn->query($sql);
             margin: 10px 0;
             color: #555;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #5bc0de;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #31b0d5;
+        }
+        .delete-button {
+            background-color: #d9534f;
+        }
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
     </style>
 </head>
 <body>
-    <h1>Flat services</h1>
+    <h1>Flat Services</h1>
     <div class="container">
         <?php
         if ($result->num_rows > 0) {
@@ -53,10 +72,20 @@ $result = $conn->query($sql);
                 echo '<h3>' . $row["Rent_Type"] . '</h3>';
                 echo '<p>' . $row["Rent_Description"] . '</p>';
                 echo '<p>Price: $' . $row["Rent_price"] . '</p>';
+                echo '<div class="button-container">';
+               
+             if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
+                    echo '<a href="../update_post.php?id=' . $row["Rent_id"] . '" class="button">Update</a>';
+        
+             endif; 
+             if ($loggedIn && $row['Renter_name']=== $_SESSION['User_Name'] ): 
+                echo '<a href="delete_post.php?id=' . $row["Rent_id"] . '" class="button delete-button">Delete</a>';
+             endif;
+                echo '</div>';
                 echo '</div>';
             }
         } else {
-            echo "No flats available.";
+            echo "No flat  available.";
         }
         $conn->close();
         ?>
