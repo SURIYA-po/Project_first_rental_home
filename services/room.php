@@ -7,7 +7,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT Rent_Type, Rent_Description, Rent_price, Rent_images FROM Rent WHERE Rent_Type='room'";
+$sql = "SELECT Rent_id, Rent_Type, Rent_Description, Rent_price, Rent_images FROM Rent WHERE Rent_Type='room'";
 $result = $conn->query($sql);
 ?>
 
@@ -40,6 +40,30 @@ $result = $conn->query($sql);
             margin: 10px 0;
             color: #555;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #5bc0de;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #31b0d5;
+        }
+        .delete-button {
+            background-color: #d9534f;
+        }
+        .delete-button:hover {
+            background-color: #c9302c;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +77,10 @@ $result = $conn->query($sql);
                 echo '<h3>' . $row["Rent_Type"] . '</h3>';
                 echo '<p>' . $row["Rent_Description"] . '</p>';
                 echo '<p>Price: $' . $row["Rent_price"] . '</p>';
+                echo '<div class="button-container">';
+                echo '<a href="update_post.php?id=' . $row["Rent_id"] . '" class="button">Update</a>';
+                echo '<a href="delete_post.php?id=' . $row["Rent_id"] . '" class="button delete-button">Delete</a>';
+                echo '</div>';
                 echo '</div>';
             }
         } else {

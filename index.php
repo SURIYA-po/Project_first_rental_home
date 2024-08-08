@@ -583,52 +583,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
       </div>
     </section><!-- #clients -->
-   -->
+   
     <!--==========================
       Our Portfolio Section
     ============================-->
     <section id="portfolio" class="wow fadeInUp">
-        <div class="container">
-            <div class="section-header">
-                <h2>Recent Posts</h2>
-                <p></p>
-            </div>
+    <div class="container">
+        <div class="section-header">
+            <h2>Recent Posts</h2>
+            <p></p>
         </div>
+    </div>
 
-        <div class="container-fluid">
-            <div class="row no-gutters">
-                <?php
-                
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <?php
 
-                include 'connect.php'; // Include your database connection file
+            include 'connect.php'; // Include your database connection file
 
-                $sql = "SELECT Rent_id, Rent_Type, Rent_Price, Renter_Address, Rent_images FROM Rent";
-                $result = $conn->query($sql);
+            $sql = "SELECT Rent_id, Rent_Type, Rent_Price, Renter_Address, Rent_images FROM Rent";
+            $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-lg-3 col-md-4">';
-                        echo '<div class="portfolio-item card wow fadeInUp">';
-                        echo '<a href="post_details.php?id=' . $row['Rent_id'] . '">';
-                        echo '<img src="' . $row['Rent_images'] . '" class="card-img-top" alt="">';
-                        echo '<div class="card-body">';
-                        echo '<h5 class="card-title">' . $row['Rent_Type'] . '</h5>';
-                        echo '<p class="card-text">Price: $' . $row['Rent_Price'] . '</p>';
-                        echo '<p class="card-text">Location: ' . $row['Renter_Address'] . '</p>';
-                        echo '</div>';
-                        echo '</a>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo '<p>No posts found.</p>';
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="col-lg-3 col-md-4">';
+                    echo '<div class="portfolio-item card wow fadeInUp">';
+                    echo '<a href="post_details.php?id=' . $row['Rent_id'] . '">';
+                    echo '<img src="' . $row['Rent_images'] . '" class="card-img-top" alt="">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $row['Rent_Type'] . '</h5>';
+                    echo '<p class="card-text">Price: $' . $row['Rent_Price'] . '</p>';
+                    echo '<p class="card-text">Location: ' . $row['Renter_Address'] . '</p>';
+                    echo '</div>';
+                    echo '</a>';
+                    echo '<div class="card-body">';
+                    echo '<a href="update_post.php?id=' . $row['Rent_id'] . '" class="btn btn-primary">Update</a>';
+                    echo '<a href="delete_post.php?id=' . $row['Rent_id'] . '" class="btn btn-danger">Delete</a>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
                 }
+            } else {
+                echo '<p>No posts found.</p>';
+            }
 
-                $conn->close();
-                ?>
-            </div>
+            $conn->close();
+            ?>
         </div>
-    </section><!-- #portfolio -->
+    </div>
+</section>
+<!-- #portfolio -->
 
     
     <!--==========================

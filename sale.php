@@ -112,7 +112,7 @@ session_start(); // Start the session
                          VALUES ('$Rent_Type', '$Rent_Description', '$Rent_price', '$Rent_images', '$Renter_Address', '$renter_id')";
 
             if ($conn->query($sql_rent) === TRUE) {
-                echo "<br> <p>Rent and renter details posted successfully.</p> ";
+                echo "Rent and renter details posted successfully.";
             } else {
                 echo "Error: " . $sql_rent . "<br>" . $conn->error;
             }
