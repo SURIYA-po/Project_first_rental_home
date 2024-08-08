@@ -303,10 +303,42 @@ background-image:url('img/logo.png');
 background-size:contain;
 background-repeat:no-repeat;
 border-radius:50%;
- 
+}
+
+@media (max-width: 767px) {
+
+
+
+  #header #logo .image {
+    height:40px;
+    width:40px;
+}
 }
 
 
+  .mapouter {
+      position: relative;
+      text-align: right;
+      height: 0;
+      overflow: hidden;
+      padding-bottom: 50%; /* Adjust this value to change the aspect ratio */
+      max-width: 100%; /* Adjust this value to set the maximum width */
+      margin: 0 auto; /* Center the map horizontally */
+    }
+    .gmap_canvas {
+      overflow: hidden;
+      background: none !important;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .gmap_canvas iframe {
+      width: 100%;
+      height: 100%;
+      border: 0
+    }
     </style>
 </head>
 
@@ -737,8 +769,12 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
-      <div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>
-
+      <!-- <div id="google-map" data-latitude="27.66399079535582" data-longitude="- 85.34132924452409"></div> -->
+      <div class="mapouter">
+    <div class="gmap_canvas">
+      <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=27.663858655157824%2C+85.34175434252688&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+    </div>
+  </div>
       <div class="form-container">
     <div class="form-wrapper">
         <div class="message-success">Your message has been sent. Thank you!</div>
@@ -795,7 +831,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="lib/magnific-popup/magnific-popup.min.js"></script>
   <script src="lib/sticky/sticky.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap"></script>
   <!-- Contact Form JavaScript File -->
   <script src="contactform/contactform.js"></script>
 
